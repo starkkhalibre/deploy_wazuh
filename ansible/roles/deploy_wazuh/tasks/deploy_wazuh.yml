@@ -1,7 +1,0 @@
----
-- name: Create wazuh namespace
-  kubernetes.core.k8s:
-    name: wazuh
-    api_version: v1
-    kind: Namespace
-    state: present

@@ -1,0 +1,8 @@
+
+- name: Setting portal properties configmap
+  kubernetes.core.k8s:
+    api_key: "{{ k8s_api_key }}"
+    host: "{{ k8s_api_host }}"
+    state: present
+    template: k8s/liferay-portal-properties-configmap.yaml.j2
+    apply: true
