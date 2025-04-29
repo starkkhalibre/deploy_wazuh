@@ -1,0 +1,68 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: telegram-alert
+  namespace: wazuh
+data:
+  custom-telegram.py: |
+    #!/var/ossec/framework/python/bin/python3
+    import sys
+    import json
+    import requests
+
+    CHAT_ID = "910787933"
+
+    # Read configuration parameters
+    alert_file = open(sys.argv[1])
+    hook_url = sys.argv[3]
+
+    # Read the alert file
+    alert_json = json.loads(alert_file.read())
+    alert_file.close()
+
+    # Extract data from JSON with correct paths
+    agent_name = alert_json.get('agent', {}).get('name', 'N/A')
+    severity = alert_json.get('data', {}).get('alert', {}).get('severity', 'N/A')
+    src_ip = alert_json.get('data', {}).get('src_ip', 'N/A')
+    dest_ip = alert_json.get('data', {}).get('dest_ip', 'N/A')
+    src_port = alert_json.get('data', {}).get('src_port', 'N/A')
+    interface = alert_json.get('data', {}).get('in_iface', 'N/A')
+
+    # Extract additional fields from alert data with correct paths
+    signature_id = alert_json.get('data', {}).get('alert', {}).get('signature_id', 'N/A')
+    attack_target = alert_json.get('data', {}).get('alert', {}).get('metadata', {}).get('attack_target', ['N/A'])[0]
+    signature_severity = alert_json.get('data', {}).get('alert', {}).get('metadata', {}).get('signature_severity', ['N/A'])[0]
+    confidence = alert_json.get('data', {}).get('alert', {}).get('metadata', {}).get('confidence', ['N/A'])[0]
+    updated_at = alert_json.get('data', {}).get('alert', {}).get('metadata', {}).get('updated_at', ['N/A'])[0]
+    created_at = alert_json.get('data', {}).get('alert', {}).get('metadata', {}).get('created_at', ['N/A'])[0]
+    signature = alert_json.get('data', {}).get('alert', {}).get('signature', 'N/A')
+    action = alert_json.get('data', {}).get('alert', {}).get('action', 'N/A')
+    category = alert_json.get('data', {}).get('alert', {}).get('category', 'N/A')
+
+    # Generate request data for Telegram
+    msg_data = {}
+    msg_data['chat_id'] = CHAT_ID
+    msg_data['text'] = json.dumps({
+        'agent_name': agent_name,
+        'severity': severity,
+        'src_ip': src_ip,
+        'dest_ip': dest_ip,
+        'src_port': src_port,
+        'interface': interface,
+        'signature_id': signature_id,
+        'signature': signature,
+        'action': action,
+        'category': category,
+        'attack_target': attack_target,
+        'signature_severity': signature_severity,
+        'confidence': confidence,
+        'updated_at': updated_at,
+        'created_at': created_at
+    })
+
+    headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
+
+    # Send the request
+    requests.post(hook_url, headers=headers, data=json.dumps(msg_data))
+    sys.exit(0)
