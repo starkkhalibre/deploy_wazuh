@@ -1,0 +1,40 @@
+---
+- name: Deploy dashboard service 
+  kubernetes.core.k8s:
+    state: present
+    namespace: wazuh
+    template: wazuh/indexer_stack/wazuh-dashboard/dashboard-svc.yml.j2
+    apply: true
+  tags:  dashboard-svc
+
+- name: Deploy indexer-api service 
+  kubernetes.core.k8s:
+    state: present 
+    namespace: wazuh
+    template: wazuh/indexer_stack/wazuh-indexer/cluster/indexer-api-svc.yml.j2
+    apply: true
+  tags: indexer-api
+
+- name: Deploy cluster service
+  kubernetes.core.k8s:
+    state: present 
+    namespace: wazuh
+    template: wazuh/wazuh_managers/wazuh-cluster-svc.yml.j2
+    apply: true
+  tags:  cluster
+
+- name: Deploy wazuh master service
+  kubernetes.core.k8s:
+    state: present 
+    namespace: wazuh
+    template: wazuh/wazuh_managers/wazuh-master-svc.yml.j2
+    apply: true
+  tags:  master 
+
+- name: Deploy wazuh worker service
+  kubernetes.core.k8s:
+    state: present 
+    namespace: wazuh
+    template: wazuh/wazuh_managers/wazuh-worker-svc.yml.j2
+    apply: true
+  tags: worker

@@ -1,0 +1,48 @@
+---
+- name: Deploy local_internal_options configmap
+  kubernetes.core.k8s:
+    state: present
+    namespace: wazuh
+    template: wazuh/configmap/local_internal_options.yml.j2
+    apply: true
+  tags: local_internal_options
+
+- name: Deploy local_rules configmap
+  kubernetes.core.k8s:
+    state: present
+    namespace: wazuh
+    template: wazuh/configmap/local_rules.yml.j2
+    apply: true
+  tags: local_rules
+
+- name: Deploy telegram configmap
+  kubernetes.core.k8s:
+    state: present
+    namespace: wazuh
+    template: wazuh/configmap/telegram_configmap.yml.j2
+    apply: true
+  tags: telegram
+
+- name: Deploy dashboard configmap 
+  kubernetes.core.k8s:
+    state: present 
+    namespace: wazuh 
+    template: wazuh/configmap/dashboard.conf.yml.j2
+    apply: true
+  tags: dashboard
+
+- name: Deploy wazuh configmap
+  kubernetes.core.k8s:
+    state: present 
+    namespace: wazuh 
+    template:  wazuh/configmap/wazuh.conf.yml.j2
+    apply: true
+  tags: wazuh
+
+- name: Deploy indexer configmap 
+  kubernetes.core.k8s:
+    state: present
+    namespace: wazuh
+    template:  wazuh/configmap/indexer-conf.yml.j2
+    apply: true
+  tags: indexer

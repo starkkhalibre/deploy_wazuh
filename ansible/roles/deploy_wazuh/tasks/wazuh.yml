@@ -1,0 +1,40 @@
+---
+- name: Deploy wazuh storage class 
+  kubernetes.core.k8s:
+    state: present
+    namespace: wazuh
+    template: wazuh/base/storage-class.yml.j2
+    apply: true
+  tags: storage
+
+- name: Deploy wazuh dashboard
+  kubernetes.core.k8s:
+    state: present 
+    namespace: wazuh
+    template: wazuh/indexer_stack/wazuh-dashboard/dashboard-deploy.yml.j2
+    apply: true
+  tags: dashboard
+
+- name: Deploy wazuh indexer 
+  kubernetes.core.k8s:
+    state: present 
+    namespace: wazuh
+    template: wazuh/indexer_stack/wazuh-indexer/cluster/indexer-sts.yml.j2
+    apply: true
+  tags: indexer
+
+- name: Deploy wazuh server master 
+  kubernetes.core.k8s:
+    state: present 
+    namespace: wazuh
+    template: wazuh/wazuh_managers/wazuh-master-sts.yml.j2
+    apply: true
+  tags: master
+
+- name: Deploy wazuh server worker
+  kubernetes.core.k8s:
+    state: present 
+    namespace: wazuh
+    template: wazuh/wazuh_managers/wazuh-worker-sts.yml.j2
+    apply: true
+  tags: worker
