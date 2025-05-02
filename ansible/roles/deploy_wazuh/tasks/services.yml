@@ -15,6 +15,14 @@
     apply: true
   tags: indexer-api
 
+- name: Deploy indexer service
+  kubernetes.core.k8s:
+    state: present 
+    namespace: wazuh
+    template: wazuh/indexer_stack/wazuh-indexer/indexer-svc.yml.j2
+    apply: true
+  tags: indexer
+
 - name: Deploy cluster service
   kubernetes.core.k8s:
     state: present 
