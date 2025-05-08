@@ -1,0 +1,35 @@
+---
+###
+# WAZUH IMAGES
+###
+wazuh_manager_image_version: 4.11.1
+wazuh_dashboard_image_version: 4.11.1
+wazuh_indexer_image_version: 4.11.1
+
+###
+# WAZUH DASHBOARD CRED
+###
+dashboard_username: kibanaserver
+dashboard_password: kibanaserver
+
+###
+# WAZUH INDEXER CRED
+###
+indexer_username: admin
+indexer_password: SecretPassword
+
+###
+# API CRED
+###
+api_username: wazuh-wui
+api_password: MyS3cr37P450r.*-
+
+###
+# WAZUH AUTH PASS
+###
+authd_pass: password
+
+###
+# CLUSTER KEY
+###
+cluster_key: 123a45bc67def891gh23i45jk67l8mn9

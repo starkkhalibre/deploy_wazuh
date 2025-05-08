@@ -16,7 +16,6 @@ spec:
         app: wazuh-indexer
       name: wazuh-indexer
     spec:
-      # Set the wazuh-indexer volume permissions so the wazuh-indexer user can use it
       volumes:
         - name: indexer-certs
           secret:
@@ -53,7 +52,7 @@ spec:
             privileged: true
       containers:
         - name: wazuh-indexer
-          image: 'wazuh/wazuh-indexer:4.11.1'
+          image: 'wazuh/wazuh-indexer:{{ wazuh_indexer_image_version }}'
           resources:
             limits:
               cpu: 2000m

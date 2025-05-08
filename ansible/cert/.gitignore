@@ -1,0 +1,5 @@
+dashboard_http/*.pem
+
+indexer_cluster/*.pem
+indexer_cluster/*.csr
+indexer_cluster/*.srl
