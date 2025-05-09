@@ -2,9 +2,9 @@
 ###
 # WAZUH IMAGES
 ###
-wazuh_manager_image_version: 4.11.1
-wazuh_dashboard_image_version: 4.11.1
-wazuh_indexer_image_version: 4.11.1
+wazuh_manager_image_version: 4.12.0
+wazuh_dashboard_image_version: 4.12.0
+wazuh_indexer_image_version: 4.12.0
 
 ###
 # WAZUH DASHBOARD CRED
