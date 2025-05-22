@@ -136,17 +136,17 @@ spec:
               mountPath: /var/lib/filebeat
               subPath: filebeat/var/lib/filebeat
               # At first time deployment comment out this 
-            - name: writable-local-rules
-              mountPath: /var/ossec/etc/rules/local_rules.xml
-              subPath: local_rules.xml
-            - name: local-internal-options
-              mountPath: /var/ossec/etc/local_internal_options.conf
-              subPath: local_internal_options.conf
-              readOnly: true
-            - name: telegram-alert
-              mountPath: /var/ossec/integrations/custom-telegram.py
-              subPath: custom-telegram.py
-              readOnly: true
+            # - name: writable-local-rules
+            #   mountPath: /var/ossec/etc/rules/local_rules.xml
+            #   subPath: local_rules.xml
+            # - name: local-internal-options
+            #   mountPath: /var/ossec/etc/local_internal_options.conf
+            #   subPath: local_internal_options.conf
+            #   readOnly: true
+            # - name: telegram-alert
+            #   mountPath: /var/ossec/integrations/custom-telegram.py
+            #   subPath: custom-telegram.py
+            #   readOnly: true
           ports:
             - containerPort: 1514
               name: agents-events
